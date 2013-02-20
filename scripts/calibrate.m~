@@ -1,0 +1,65 @@
+% -----------------------
+%
+%
+%------------------------
+clear all;
+format long;
+
+calibration_data = importdata('data/h2o.dat');
+calibration_wavenumbers = importdata('data/calibration_wavenumbers.dat');
+
+average = mean(calibration_data);
+average_level = zeros(1,length(calibration_data));
+
+for m=1:length(calibration_data)
+	average_level(m) = average;
+end;
+
+xrange = 1:1:length(calibration_data);
+
+% hold off;
+% plot(xrange, hydrogen_data);
+% hold on;
+% plot(xrange, average_level, 'r');
+
+scaled_data = calibration_data - average;
+
+max_peak = max(scaled_data);
+cutoff_value = 0.2*max_peak;
+
+peak_data = zeros(1, length(scaled_data));
+
+% not very informative variable name
+fafa = zeros(1, length(scaled_data));
+peaks = zeros(1, length(scaled_data));
+count = 1;
+
+for i=1:length(scaled_data)
+	if abs(scaled_data(i)) > cutoff_value
+		peak_data(count) = scaled_data(i);
+		peaks(i) = scaled_data(i);
+		if (scaled_data(i)) < 0
+			fafa(i) = -cutoff_value;
+		else
+			fafa(i) = cutoff_value;
+		end;
+	end;
+	count = count+1;
+end;
+
+
+
+peak_data(peak_data == 0) = [];
+num_peaks = numpeaks(peaks);
+% plot(xrange, peaks, 'g');
+% hold on;
+
+% get peak positions and their uncertainties
+peak_channels = locate_peaks(peaks);
+% errorbar(calibration_wavenumbers, peak_channels(1:num_peaks,1), peak_channels(1:num_peaks,2), 'r.');
+
+calibration_fit(peak_channels, calibration_wavenumbers, num_peaks);
+
+
+
+% plot(xrange, scaled_data, 'xr');
