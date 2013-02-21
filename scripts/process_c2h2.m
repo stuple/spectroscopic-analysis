@@ -1,7 +1,10 @@
 function process_c2h2()
-  %load data
 
+  % load data
   c2h2 = load('data/c2h2.dat');
+
+  % load corresponding m values
+  m_values = load('data/c2h2_m.dat')
 
   hold off;
   plot(c2h2);
@@ -33,6 +36,17 @@ function process_c2h2()
 
   % get peak positions and their uncertainties
   peak_channels = locate_peaks(peaks)
+  
+  % assign channel values for peaks to variables for easier access
+  yy = peak_channels(:,1);
+  ee = peak_channels(:,2);
 
-%   c2h2_peaks = locate_peaks(c2h2)
+  error_plot = errorbar(m_values, yy, ee);
+  grid on;
+  set(error_plot, "linestyle", "none");
+  set(error_plot, "marker", "x");
+
+
+
+  % plot(peak_channels(:,1), m_values, 'kx');
 

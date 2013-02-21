@@ -8,7 +8,7 @@ function [m, sigma_m, red_chi_sq] = calibration_fit (channel_data, wavenumber_da
 						  1);
 	% construct a model for values for that polynomial
 	fitted_values = polyval(fit_p, wavenumber_data);
-	
+	%{
 	% reset any existing plots
 	hold off;
 
@@ -19,7 +19,7 @@ function [m, sigma_m, red_chi_sq] = calibration_fit (channel_data, wavenumber_da
 	% hold the previous plot to superimpose model data
 	hold on;
 	plot(wavenumber_data, fitted_values, 'r');
-    
+	%}
         m = fit_p(1);
     
         % calculation for the reduced chi_squared
