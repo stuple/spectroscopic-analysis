@@ -6,4 +6,4 @@ format long;
 % calibrate detector and obtain scaling parameters
 [m, sig_m] = calibrate();
 
-process_c2h2();
+process_c2h2(m, sig_m);

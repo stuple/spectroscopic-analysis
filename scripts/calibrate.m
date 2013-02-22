@@ -41,5 +41,8 @@ function [m, sig_m] = calibrate()
   [m, sig_m] = calibration_fit(peak_channels, calibration_wavenumbers, \
 			       num_peaks);
 
+  m = m^-1;
+  sig_m = m^2*sig_m;
+
   return;
 endfunction

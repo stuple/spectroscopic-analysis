@@ -1,5 +1,8 @@
 function [m, sigma_m, red_chi_sq] = calibration_fit (channel_data, wavenumber_data, size)
 
+        % todo refactor function to enable arbitrary fitting of any
+	% datapoints to different degrees of polynomial
+
         yy = channel_data(:,1);
         ee = channel_data(:,2);
 
@@ -8,6 +11,8 @@ function [m, sigma_m, red_chi_sq] = calibration_fit (channel_data, wavenumber_da
 						  1);
 	% construct a model for values for that polynomial
 	fitted_values = polyval(fit_p, wavenumber_data);
+
+	% code commented due to no need of visual feedback (plotting)
 	%{
 	% reset any existing plots
 	hold off;
